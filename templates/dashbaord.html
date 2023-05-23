@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="{{ url_for('static',filename='app.js') }}"></script>
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="scroll-tracker "class="container">
+
+  <main>
+    <article>
+      <form action="/action_page.php">
+        <div class="form-group">
+          <label for="email">Article Subject:</label>
+          <input type="text" class="form-control" id="articletitle" placeholder="Article Subject:" name="article">
+        </div>
+        <div class="form-group">
+          <label for="email">Article Topics:</label>
+          <input type="text" class="form-control" id="articletopic" placeholder="Enter Article Topic" name="article">
+        </div>
+        <div class="form-group">
+          <label for="email">Where</label>
+          <input type="text" class="form-control" id="where" placeholder="Enter Country" name="article">
+        </div>
+        <div class="form-group">
+          <label for="email">Who</label>
+          <input type="text" class="form-control" id="who" placeholder="Enter Article Person" name="article">
+        </div>
+        <div class="form-group">
+          <label for="email">When</label>
+          <input type="text" class="form-control" id="when" placeholder="Enter Article Time" name="article">
+        </div>
+        <div class="form-group">
+          <label for="email">How</label>
+          <input type="text" class="form-control" id="how" placeholder="Enter Article Heading" name="article">
+        </div>
+        <div class="form-group">
+          <label for="email">Why</label>
+          <input type="text" class="form-control" id="why" placeholder="Enter Article Reasion" name="article">
+        </div>
+        <div class="form-group">
+          <label for="email">How many words</label>
+          <input type="text" class="form-control" id="noofword" placeholder="Get total no of words" name="article">
+        </div>
+        <div class="form-group">
+          <label for="email">Key words</label>
+          <input type="text" class="form-control" id="keyword" placeholder="Enter Article Key Words" name="article">
+        </div>
+
+
+
+      </form>
+      <button class="btn btn-default" id="submitarticle">Submit</button>
+    </article>
+
+    <div class="highlight" id="completearticle">
+      <h3>💡 Articles</h3>
+
+    </div>
+
+
+  </main>
+</div>
+  <script>
+
+    $(document).ready(function () {
+      $("#submitarticle").click(function () {
+
+
+        var formData = new FormData();
+
+        formData.append('subject', $('#articletitle').val());
+        formData.append('topic', $('#articletopic').val());
+        formData.append('where', $('#where').val());
+        formData.append('who', $('#who').val());
+        formData.append('when', $('#when').val());
+        formData.append('how', $('#how').val());
+        formData.append('why', $('#why').val());
+        formData.append('noofword', $('#noofword').val());
+        formData.append('keyword', $('#keyword').val());
+
+        $.ajax({
+          url: '/anser',
+          type: 'POST',
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function (data) {
+
+
+            $('#completearticle').append('<div class="footer answer"><p>' + data + '</p></div>');
+
+
+          }
+        });
+      });
+    });
+  </script>
+
+</body>
+
+
+</html>
